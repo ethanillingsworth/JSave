@@ -1,4 +1,4 @@
-# PROJECT
+# JSave
 JSave is a simple python module for saving data to JSON files.
 
 ![PyPI - Version](https://img.shields.io/pypi/v/jsave)
