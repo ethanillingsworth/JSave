@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "jsave"
+version = "1.0.0"
+description = "A simple python module for saving data to JSON files"
+authors = ["Ethan Illingsworth <illingsworth.ethan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
