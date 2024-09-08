@@ -28,7 +28,7 @@ To find out what to import, and how to use JSave check out the [docs](#docs).
 
 ## Docs
 
-### save
+### Save
 The save function is used to save `data - dict` to a `filepath - str`.
 
 ```py
@@ -43,7 +43,7 @@ save(data, "save.json")
 ```
 
 
-### read
+### Read
 The read function is used to read data from a `filepath - str`.
 
 ```py
@@ -51,6 +51,16 @@ from jsave.jsave import read
 
 print(read("save.json"))
 # {"This is some sample data": "Indeed it is"}
+```
+
+### Delete
+The read function is used to delete a file provided by `filepath - str`.
+
+```py
+from jsave.jsave import delete
+
+delete("save.json")
+# file is deleted
 ```
 
 ## Contributing

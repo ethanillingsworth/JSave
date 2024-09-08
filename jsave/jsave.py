@@ -1,4 +1,5 @@
 import json
+import os
 
 def save(data: dict, filepath: str):
     jsonData = json.dumps(data, indent=4)
@@ -9,3 +10,7 @@ def save(data: dict, filepath: str):
 def read(filepath: str) -> dict:
     with open(filepath, "r") as f:
         return json.loads(f.read())
+
+def delete(filepath: str):
+    if os.path.exists(filepath):
+        os.remove(filepath)
