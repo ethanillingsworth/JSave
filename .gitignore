@@ -2,3 +2,4 @@ dist
 save.json
 jsave/test.py
 jsave/__pycache__
+.python-version
