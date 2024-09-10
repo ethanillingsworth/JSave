@@ -63,6 +63,16 @@ delete("save.json")
 # file is deleted
 ```
 
+### Merge
+The merge function is used to combine multiple `files - [str]` and save to a `output_filepath - str`.
+
+```py
+from jsave.jsave import merge
+
+merge(["save.json", "newsave.json"], "output.json")
+# new file named output.json with contents of both save.json and newsave.json.
+```
+
 ## Contributing
 All types of contibutions are welcome for the JSave project, whether its updating the documentation, reporting issues, or simply mentioning JSave in your projects.
 
