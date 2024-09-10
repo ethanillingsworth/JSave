@@ -1,5 +1,6 @@
 dist
-save.json
-jsave/test.py
-jsave/__pycache__
+*.json
+__pycache__
+.pytest_cache
 .python-version
+.venv

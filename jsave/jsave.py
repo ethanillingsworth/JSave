@@ -14,3 +14,12 @@ def read(filepath: str) -> dict:
 def delete(filepath: str):
     if os.path.exists(filepath):
         os.remove(filepath)
+
+def merge(files: [str], output_filepath: str):
+    merged_data = {}
+
+    for file in files:
+        data = read(file)
+        merged_data.update(data)
+        
+    save(merged_data, output_filepath)
