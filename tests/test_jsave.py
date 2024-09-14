@@ -29,6 +29,11 @@ with open("save.json", "w") as f:
 def test_read():
     assert read("save.json") == data
 
+    assert read("save.json", {"name", "age"}) == {
+        "name": "John Doe",
+        "age": 30
+    }
+
 def test_save():
     test_data = {
         "Hello": "World"

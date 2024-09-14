@@ -20,7 +20,7 @@ pip3 install jsave
 ## Quick Start
 To get started with JSave first import functions from `jsave.jsave` into your project like this.
 ```py
-from jsave.jsave import FUNCTIONS_HERE
+from jsave import FUNCTIONS_HERE
 ```
 
 To find out what to import, and how to use JSave check out the [docs](#docs).
@@ -32,7 +32,7 @@ To find out what to import, and how to use JSave check out the [docs](#docs).
 The save function is used to save `data - dict` to a `filepath - str`.
 
 ```py
-from jsave.jsave import save
+from jsave import save
 
 data = {
     "This is some dict in python": "It is very cool"
@@ -47,17 +47,42 @@ save(data, "save.json")
 The read function is used to read data from a `filepath - str`.
 
 ```py
-from jsave.jsave import read
+from jsave import read
 
 print(read("save.json"))
 # {"This is some sample data": "Indeed it is"}
+```
+
+If you only want to grab specific keys you can specify them with the `keys - [str]` parameter.
+
+```py
+from jsave import read
+
+print(read("save.json", keys=["Hello"]))
+# {"Hello": "World"}
+```
+
+If one of the keys you're searching for dosent exist then you'll get an error like this.
+```
+Exception: 'World' could not be loaded, please make sure it is in 'save.json'
+(or set parameter 'safe_mode' to False)
+```
+
+If you would like to skip over keys the read function cant find set `safe_mode - bool` to `False`.
+
+```py
+from jsave import read
+
+print(read("save.json", keys=["Hello", "Guy"], safe_mode=False))
+# Cannot find key Guy, but safe_mode is False so it skips over it.
+# {"Hello": "World"}
 ```
 
 ### Delete
 The read function is used to delete a file provided by `filepath - str`.
 
 ```py
-from jsave.jsave import delete
+from jsave import delete
 
 delete("save.json")
 # file is deleted
@@ -67,7 +92,7 @@ delete("save.json")
 The merge function is used to combine multiple `files - [str]` and save to a `output_filepath - str`.
 
 ```py
-from jsave.jsave import merge
+from jsave import merge
 
 merge(["save.json", "newsave.json"], "output.json")
 # new file named output.json with contents of both save.json and newsave.json.
