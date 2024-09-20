@@ -1,1 +1,1 @@
-from jsave import *
+from jsave import read, save, delete, load
