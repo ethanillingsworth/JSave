@@ -98,6 +98,51 @@ merge(["save.json", "newsave.json"], "output.json")
 # new file named output.json with contents of both save.json and newsave.json.
 ```
 
+### JSONData
+JSONData contains a variety of methods to use on JSON Data, It can be created from a `string` containing JSON Data, from the `read` function or from a python `dict`.
+
+```py
+from jsave import JSONData, read
+
+# from string
+stringdata = '{"Im some": "Json Data"}'
+jdata = JSONData(stringdata)
+
+# from read
+jdata = read("save.json")
+
+# from dict
+somedata = {
+    "Hello": "World"
+}
+
+jdata = JSONData(somedata)
+```
+
+#### Prettify
+The Prettify method returns the JSONData in a pretty format which `indent - int` size can be specifed.
+
+```py
+from jsave import JSONData
+
+# from dict
+somedata = {"Hello": "World"}
+
+jdata = JSONData(somedata)
+
+print(jdata.prettify())
+#output:
+#{
+#    "Hello": "World"
+#}
+
+print(jdata.prettify(indent=2))
+#output:
+#{
+#  "Hello": "World"
+#} 
+```
+
 ## Contributing
 All types of contibutions are welcome for the JSave project, whether its updating the documentation, reporting issues, or simply mentioning JSave in your projects.
 

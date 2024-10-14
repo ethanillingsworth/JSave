@@ -1,8 +1,8 @@
 import sys
 import json
 
-sys.path.insert(0, './jsave')
-from jsave import save, read, merge, delete
+sys.path.insert(0, './')
+from jsave import save, read, merge, delete, JSONData
 
 data = {
     "name": "John Doe",
@@ -27,12 +27,12 @@ with open("save.json", "w") as f:
 
 
 def test_read():
-    assert read("save.json") == data
+    assert read("save.json").data == JSONData(data).data
 
-    assert read("save.json", {"name", "age"}) == {
+    assert read("save.json", {"name", "age"}).data == JSONData({
         "name": "John Doe",
         "age": 30
-    }
+    }).data
 
 def test_save():
     test_data = {
@@ -40,14 +40,14 @@ def test_save():
     }
     save(test_data, "newsave.json")
 
-    assert read("newsave.json") == test_data
+    assert read("newsave.json").data == JSONData(test_data).data
 
 def test_update():
     merge(["save.json", "newsave.json"], "output.json")
 
-    save = read("save.json")
+    save = read("save.json").data
 
-    newsave = read("newsave.json")
+    newsave = read("newsave.json").data
 
     merge_data = {}
 
@@ -55,7 +55,7 @@ def test_update():
     merge_data.update(newsave)
 
 
-    assert read("output.json") == merge_data
+    assert read("output.json").data == merge_data
 
 def test_delete():
     delete("output.json")
