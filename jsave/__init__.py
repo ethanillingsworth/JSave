@@ -1,6 +1,6 @@
 import json
 import os
-
+from tsafe import safe
 
 class JSONData():
     """
@@ -9,7 +9,7 @@ class JSONData():
     Args:
         data (str || dict)
     """
-    def __init__(self, data):
+    def __init__(self, data: object):
         if (type(data) == dict):
             self.data = data
         else:
@@ -26,7 +26,7 @@ class JSONData():
             JSONData as str with formmating
         """
         return json.dumps(self.data, indent=indent)
-
+        
     def set_value(self, key: str, value: object):
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
@@ -97,6 +97,7 @@ class JSONData():
     def __len__(self) -> int:
         return len(self.data)
 
+@safe
 def save(data: dict, filepath: str, indent: int = 4) -> JSONData:
     """
     Saves a python dict to a filepath as JSON data
@@ -115,7 +116,7 @@ def save(data: dict, filepath: str, indent: int = 4) -> JSONData:
     
     return JSONData(data)
     
-
+@safe
 def read(filepath: str, keys: [str] = [], safe_mode: bool = True) -> JSONData:
     """
     Reads a JSON file.
@@ -145,6 +146,7 @@ def read(filepath: str, keys: [str] = [], safe_mode: bool = True) -> JSONData:
 
         return JSONData(f.read())
 
+@safe
 def delete(filepath: str):
     """
     Delete a file at the specified filepath.
