@@ -1,5 +1,5 @@
 # JSave
-JSave is a simple python module for saving data to JSON files.
+JSave is a simple python module for operating on JSON files.
 
 ![PyPI - Version](https://img.shields.io/pypi/v/jsave)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/jsave)
