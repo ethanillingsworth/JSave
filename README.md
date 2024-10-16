@@ -29,7 +29,14 @@ To find out what to import, and how to use JSave check out the [docs](#docs).
 ## Docs
 
 ### Save
-The save function is used to save `data - dict` to a `filepath - str`.
+Saves a python dict to a filepath as JSON data
+
+Args:
+    data (dict)
+    filepath (string)
+
+Returns:
+    JSONData that was written to file
 
 ```py
 from jsave import save
@@ -44,7 +51,15 @@ save(data, "save.json")
 
 
 ### Read
-The read function is used to read data from a `filepath - str`.
+Reads a JSON file.
+
+Args:
+    filepath (string)
+    keys ([str]) = []
+    safe_mode (bool) = True
+
+Returns:
+    JSONData from file
 
 ```py
 from jsave import read
@@ -79,7 +94,10 @@ print(read("save.json", keys=["Hello", "Guy"], safe_mode=False))
 ```
 
 ### Delete
-The read function is used to delete a file provided by `filepath - str`.
+Delete a file at the specified filepath.
+
+Args:
+    filepath (string)
 
 ```py
 from jsave import delete
@@ -101,7 +119,10 @@ merge(["save.json", "newsave.json"], "output.json")
 ```
 
 ### JSONData
-JSONData contains a variety of methods to use on JSON Data, It can be created from a `string` containing JSON Data, from the `read` function or from a python `dict`.
+JSONData contains a variety of methods to use on JSON Data
+
+Args:
+    data (str || dict)
 
 ```py
 from jsave import JSONData, read
@@ -122,7 +143,13 @@ jdata = JSONData(somedata)
 ```
 
 #### prettify
-The prettify method returns the JSONData in a pretty format which `indent - int` size can be specifed.
+Returns JSONData with formating
+
+Args:
+    indent (int) = 4
+
+Returns:
+    JSONData as str with formmating
 
 ```py
 from jsave import JSONData
@@ -147,6 +174,10 @@ print(jdata.prettify(indent=2))
 
 #### set_value
 The set_value method works in a similar way to setting keys for dicts with some added comfort featues
+
+Args:
+    key (str)
+    value (object)
 
 Set a single value
 ```py
@@ -200,6 +231,12 @@ print(jdata)
 
 #### get_value
 The get_value method works in a similar way to getting keys from a dict
+
+Args:
+    key (str)
+
+Returns:
+    Value at key
 
 ```py
 from jsave import JSONData

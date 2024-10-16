@@ -4,7 +4,7 @@ import os
 
 class JSONData():
     """
-    Create JSONData
+    JSONData contains a variety of methods to use on JSON Data
 
     Args:
         data (str || dict)
@@ -21,10 +21,21 @@ class JSONData():
 
         Args:
             indent (int) = 4
+
+        Returns:
+            JSONData as str with formmating
         """
         return json.dumps(self.data, indent=indent)
 
-    def set_value(self, key: str, value):
+    def set_value(self, key: str, value: object):
+        """
+        The set_value method works in a similar way to setting keys for dicts with some added comfort featues
+
+        Args:
+            key (str)
+            value (object)
+        
+        """
         keyPath = key.split("/")
         latestValue = self.data
         for index, k in enumerate(keyPath):
@@ -38,6 +49,16 @@ class JSONData():
                 latestValue = latestValue[k]
 
     def get_value(self, key: str) -> object:
+        """
+        The get_value method works in a similar way to getting keys from a dict
+
+        Args:
+            key (str)
+
+        Returns:
+            Value at key
+        
+        """
         keyPath = key.split("/")
         latestValue = self.data
         for index, k in enumerate(keyPath):
@@ -48,6 +69,20 @@ class JSONData():
         if type(latestValue) == dict:
             return JSONData(latestValue)
         return latestValue
+    
+    def keys(self) -> [str]:
+        """
+        Returns:
+            keys from data
+        """
+        return self.data.keys()
+    
+    def values(self) -> [object]:
+        """
+        Returns:
+            values from data
+        """
+        return self.data.values()
             
 
     def __repr__(self) -> str:
@@ -59,29 +94,30 @@ class JSONData():
     def __iter__(self):
         return iter(self.data)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.data)
 
-
-
-
-
-def save(data: dict, filepath: str):
+def save(data: dict, filepath: str) -> JSONData:
     """
     Saves a python dict to a filepath as JSON data
 
     Args:
         data (dict)
         filepath (string)
+    
+    Returns:
+        JSONData that was written to file
     """
     jsonData = json.dumps(data, indent=4)
     with open(filepath, "w") as f:
         f.write(jsonData)
     
+    return JSONData(data)
+    
 
 def read(filepath: str, keys: [str] = [], safe_mode: bool = True) -> JSONData:
     """
-    Reads a JSON file an return it as a python dict.
+    Reads a JSON file.
 
     Args:
         filepath (string)
@@ -89,7 +125,7 @@ def read(filepath: str, keys: [str] = [], safe_mode: bool = True) -> JSONData:
         safe_mode (bool) = True
 
     Returns:
-        Dict with JSON data
+        JSONData from file
     """
     with open(filepath, "r") as f:
         if keys:
