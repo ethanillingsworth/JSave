@@ -24,9 +24,43 @@ class JSONData():
         """
         return json.dumps(self.data, indent=indent)
 
-    
+    def set_value(self, key: str, value):
+        keyPath = key.split("/")
+        latestValue = self.data
+        for index, k in enumerate(keyPath):
+            try:
+                latestValue = latestValue[k]
+            except KeyError:
+                latestValue[k] = {}
+                if index == len(keyPath) - 1:
+                    latestValue[k] = value
+                
+                latestValue = latestValue[k]
+
+    def get_value(self, key: str) -> object:
+        keyPath = key.split("/")
+        latestValue = self.data
+        for index, k in enumerate(keyPath):
+            try:
+                latestValue = latestValue[k]
+            except TypeError:
+                raise Exception(f"key '{k}' could not be found")
+        if type(latestValue) == dict:
+            return JSONData(latestValue)
+        return latestValue
+            
+
     def __repr__(self) -> str:
-        return f"{self.data}"
+        return str(self.data)
+
+    def __eq__(self, o: object) -> bool:
+        return self.data == o
+
+    def __iter__(self):
+        return iter(self.data)
+
+    def __len__(self):
+        return len(self.data)
 
 
 
@@ -84,20 +118,3 @@ def delete(filepath: str):
     """
     if os.path.exists(filepath):
         os.remove(filepath)
-
-def merge(files: [str], output_filepath: str):
-    """
-    Merge 2 or more JSON files and combine them into one.
-
-    Args:
-        files ([str])
-        output_filepath (str)
-
-    """
-    merged_data = {}
-
-    for file in files:
-        data = read(file).data
-        merged_data.update(data)
-        
-    save(merged_data, output_filepath)

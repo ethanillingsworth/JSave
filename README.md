@@ -89,6 +89,8 @@ delete("save.json")
 ```
 
 ### Merge
+THIS FUNCTION IS CURRENTLY NOT IMPLEMENTED!!!!
+
 The merge function is used to combine multiple `files - [str]` and save to a `output_filepath - str`.
 
 ```py
@@ -119,8 +121,8 @@ somedata = {
 jdata = JSONData(somedata)
 ```
 
-#### Prettify
-The Prettify method returns the JSONData in a pretty format which `indent - int` size can be specifed.
+#### prettify
+The prettify method returns the JSONData in a pretty format which `indent - int` size can be specifed.
 
 ```py
 from jsave import JSONData
@@ -141,6 +143,78 @@ print(jdata.prettify(indent=2))
 #{
 #  "Hello": "World"
 #} 
+```
+
+#### set_value
+The set_value method works in a similar way to setting keys for dicts with some added comfort featues
+
+Set a single value
+```py
+from jsave import JSONData
+
+# from dict
+somedata = {"Hello": "World"}
+
+jdata = JSONData(somedata)
+
+jdata.set_value("Hello", 10)
+
+print(jdata)
+# {"Hello": 10}
+```
+
+
+Set a nested value
+```py
+from jsave import JSONData
+
+# from dict
+somedata = {
+    "Hello": {
+        "World": 10
+    }
+}
+
+jdata = JSONData(somedata)
+
+jdata.set_value("Hello/World", 467)
+
+print(jdata)
+# {"Hello": {"World": 467}}
+```
+
+Set a value that dosent exist
+```py
+from jsave import JSONData
+
+# from dict
+somedata = {}
+
+jdata = JSONData(somedata)
+
+jdata.set_value("Hello/World", 467)
+
+print(jdata)
+# {"Hello": {"World": 467}}
+```
+
+#### get_value
+The get_value method works in a similar way to getting keys from a dict
+
+```py
+from jsave import JSONData
+
+# from dict
+somedata = {
+    "Hello": {
+        "World": 10
+    }
+}
+
+jdata = JSONData(somedata)
+
+print(jdata.get_value("Hello/World"))
+# 10
 ```
 
 ## Contributing
