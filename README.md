@@ -34,6 +34,7 @@ Saves a python dict to a filepath as JSON data
 Args:
     data (dict)
     filepath (string)
+    indent (int) = 4
 
 Returns:
     JSONData that was written to file
@@ -46,7 +47,7 @@ data = {
 }
 
 # save data as JSON to file save.json
-save(data, "save.json")
+save(data, "save.json", 4)
 ```
 
 

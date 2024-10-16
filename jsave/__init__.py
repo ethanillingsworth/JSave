@@ -97,18 +97,19 @@ class JSONData():
     def __len__(self) -> int:
         return len(self.data)
 
-def save(data: dict, filepath: str) -> JSONData:
+def save(data: dict, filepath: str, indent: int = 4) -> JSONData:
     """
     Saves a python dict to a filepath as JSON data
 
     Args:
         data (dict)
         filepath (string)
+        indent (int) = 4
     
     Returns:
         JSONData that was written to file
     """
-    jsonData = json.dumps(data, indent=4)
+    jsonData = json.dumps(data, indent=indent)
     with open(filepath, "w") as f:
         f.write(jsonData)
     
