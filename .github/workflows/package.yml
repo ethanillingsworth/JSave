@@ -50,7 +50,8 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+        run: | 
+          poetry install --no-interaction --no-root
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
@@ -61,6 +62,7 @@ jobs:
       #----------------------------------------------
       - name: Run tests
         run: |
+          pip install pytest
           source .venv/bin/activate
           pytest tests/
           coverage report
