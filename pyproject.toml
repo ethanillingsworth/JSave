@@ -8,7 +8,7 @@ license = "MIT License"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-tsafe = "^1.0.3"
+tsafe = "1.1.1"
 
 
 [build-system]

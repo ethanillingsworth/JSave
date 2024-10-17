@@ -70,14 +70,14 @@ class JSONData():
             return JSONData(latestValue)
         return latestValue
     
-    def keys(self) -> [str]:
+    def keys(self) -> list:
         """
         Returns:
             keys from data
         """
         return self.data.keys()
     
-    def values(self) -> [object]:
+    def values(self) -> list:
         """
         Returns:
             values from data
@@ -117,13 +117,13 @@ def save(data: dict, filepath: str, indent: int = 4) -> JSONData:
     return JSONData(data)
     
 @safe
-def read(filepath: str, keys: [str] = [], safe_mode: bool = True) -> JSONData:
+def read(filepath: str, keys: list = [], safe_mode: bool = True) -> JSONData:
     """
     Reads a JSON file.
 
     Args:
         filepath (string)
-        keys ([str]) = []
+        keys (list) = []
         safe_mode (bool) = True
 
     Returns:

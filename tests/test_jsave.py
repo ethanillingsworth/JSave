@@ -1,7 +1,5 @@
 import sys
 import json
-
-sys.path.insert(0, './')
 from jsave import save, read, delete, JSONData
 
 data = {
@@ -29,7 +27,7 @@ with open("save.json", "w") as f:
 def test_read():
     assert read("save.json") == JSONData(data)
 
-    assert read("save.json", {"name", "age"}) == JSONData({
+    assert read("save.json", ["name", "age"]) == JSONData({
         "name": "John Doe",
         "age": 30
     })
