@@ -50,6 +50,8 @@ jobs:
     - name: Install dependencies (Poetry)
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: poetry install --no-interaction --no-root
+    - name: Install library
+      run: poetry install --no-interaction
     - name: Test with pytest
       run: |
         source .venv/bin/activate
