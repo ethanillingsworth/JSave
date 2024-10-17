@@ -51,7 +51,7 @@ jobs:
       - name: Install Depends/Run tests
         run: |
           poetry install
-          pip install pytest
           source .venv/bin/activate
+          pip install pytest
           pytest tests/
           coverage report
