@@ -25,8 +25,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Lint with flake8
+    - name: Lint with flake
       run: |
+        python -m pip install --upgrade pip
+        python -m pip install flake8
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
@@ -42,10 +44,9 @@ jobs:
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-    - name: Install dependencies
+    - name: Install pytest
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
+        python -m pip install pytest
     - name: Install dependencies (Poetry)
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       run: poetry install --no-interaction --no-root
