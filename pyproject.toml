@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jsave"
-version = "1.3.0"
+version = "1.4.0"
 description = "A simple python module for saving data to JSON files"
 authors = ["Ethan Illingsworth"]
 readme = "README.md"

@@ -14,7 +14,7 @@ class JSONData():
             self.data = data
         else:
             self.data = json.loads(data)
-
+    @safe
     def prettify(self, indent: int = 4) -> str:
         """
         Returns JSONData with formating
@@ -26,7 +26,7 @@ class JSONData():
             JSONData as str with formmating
         """
         return json.dumps(self.data, indent=indent)
-        
+    @safe
     def set_value(self, key: str, value: object):
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
@@ -47,7 +47,7 @@ class JSONData():
                     latestValue[k] = value
                 
                 latestValue = latestValue[k]
-
+    @safe
     def get_value(self, key: str) -> object:
         """
         The get_value method works in a similar way to getting keys from a dict
@@ -69,14 +69,14 @@ class JSONData():
         if type(latestValue) == dict:
             return JSONData(latestValue)
         return latestValue
-    
+    @safe
     def keys(self) -> StringList:
         """
         Returns:
             keys from data
         """
         return self.data.keys()
-    
+    @safe
     def values(self) -> list:
         """
         Returns:
