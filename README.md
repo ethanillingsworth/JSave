@@ -18,7 +18,7 @@ pip3 install jsave
 ```
 
 ## Quick Start
-To get started with JSave first import functions from `jsave.jsave` into your project like this.
+To get started with JSave first import functions from `jsave` into your project like this.
 ```py
 from jsave import FUNCTIONS_HERE
 ```
