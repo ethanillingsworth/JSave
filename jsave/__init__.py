@@ -1,6 +1,6 @@
 import json
 import os
-from tsafe import StringList
+from tsafe import StringList, safe
 
 class JData():
     """
