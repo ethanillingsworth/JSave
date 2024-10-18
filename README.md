@@ -68,7 +68,7 @@ Reads a JSON file.
 
 Args:
 
-`keys ([str]) = []`
+`keys (StringList) = []`
 
 `safe_mode (bool) = True`
 
