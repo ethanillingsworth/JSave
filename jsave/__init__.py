@@ -1,6 +1,6 @@
 import json
 import os
-from tsafe import safe
+from tsafe import safe, StringList
 
 class JSONData():
     """
@@ -70,7 +70,7 @@ class JSONData():
             return JSONData(latestValue)
         return latestValue
     
-    def keys(self) -> list:
+    def keys(self) -> StringList:
         """
         Returns:
             keys from data
@@ -117,7 +117,7 @@ def save(data: dict, filepath: str, indent: int = 4) -> JSONData:
     return JSONData(data)
     
 @safe
-def read(filepath: str, keys: list = [], safe_mode: bool = True) -> JSONData:
+def read(filepath: str, keys: StringList = [], safe_mode: bool = True) -> JSONData:
     """
     Reads a JSON file.
 

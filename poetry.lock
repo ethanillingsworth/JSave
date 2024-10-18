@@ -2,16 +2,16 @@
 
 [[package]]
 name = "tsafe"
-version = "1.1.1"
+version = "1.2.0"
 description = "A module that forces functions to be type safe."
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "tsafe-1.1.1-py3-none-any.whl", hash = "sha256:22dd142f56188512953c7fbf0c8ee2b9332c4f46f0e3f004ea15cd17fbf46b3a"},
-    {file = "tsafe-1.1.1.tar.gz", hash = "sha256:4f61dfd3f6b2023097ed1181c1a955c5a1e837709ee4a5dc5689a866747d59f4"},
+    {file = "tsafe-1.2.0-py3-none-any.whl", hash = "sha256:d3474a9e3a69b7f85fe7ffce4f2ad7fb2540e74ecad8d5e09e99f429eaf2e582"},
+    {file = "tsafe-1.2.0.tar.gz", hash = "sha256:d8ffd196a17f5bf3f9f724dbd40c179df6a827c86271a5b1ec8d39cc26a368e5"},
 ]
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "cd16445fa98080bc42a03a19b721b5909baf378cc4f875628c87ca03b994098c"
+content-hash = "22fb23b224e3bf75f4f1d9fd73a1c0d1154b930792b69c071ecd8436609b9f65"
