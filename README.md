@@ -28,53 +28,71 @@ To find out what to import, and how to use JSave check out the [docs](#docs).
 
 ## Docs
 
-### Save
-Saves a python dict to a filepath as JSON data
+### JFile/JSONFile
+The JFile class is what it sounds like, providing all the neccessary methods to manipulate the specified filepath.
 
 Args:
-    data (dict)
-    filepath (string)
-    indent (int) = 4
+
+`filepath (string)`
+
+
+#### Save
+Saves a python dict to filepath as JSON data
+
+Args:
+
+`data (dict)`
+
+`indent (int) = 4`
 
 Returns:
-    JSONData that was written to file
+
+`JData that was written to file`
 
 ```py
-from jsave import save
+from jsave import JFile
 
 data = {
     "This is some dict in python": "It is very cool"
 }
 
+file = JFile("save.json")
+
 # save data as JSON to file save.json
-save(data, "save.json", 4)
+file.save(data, 4)
 ```
 
 
-### Read
+#### Read
 Reads a JSON file.
 
 Args:
-    filepath (string)
-    keys ([str]) = []
-    safe_mode (bool) = True
+
+`keys ([str]) = []`
+
+`safe_mode (bool) = True`
 
 Returns:
-    JSONData from file
+
+`JSONData from file`
 
 ```py
-from jsave import read
+from jsave import JFile
 
-print(read("save.json"))
+file = JFile("save.json")
+
+print(file.read())
 # {"This is some sample data": "Indeed it is"}
 ```
 
 If you only want to grab specific keys you can specify them with the `keys - [str]` parameter.
 
 ```py
-from jsave import read
+from jsave import JFile
 
-print(read("save.json", keys=["Hello"]))
+file = JFile("save.json")
+
+print(file.read(keys=["Hello"]))
 # {"Hello": "World"}
 ```
 
@@ -84,81 +102,93 @@ Exception: 'World' could not be loaded, please make sure it is in 'save.json'
 (or set parameter 'safe_mode' to False)
 ```
 
-If you would like to skip over keys the read function cant find set `safe_mode - bool` to `False`.
+If you would like to skip over keys the read function cant find, set `safe_mode - bool` to `False`.
 
 ```py
-from jsave import read
+from jsave import JFile
 
-print(read("save.json", keys=["Hello", "Guy"], safe_mode=False))
+file = JFile("save.json")
+
+print(file.read(keys=["Hello", "Guy"], safe_mode=False))
 # Cannot find key Guy, but safe_mode is False so it skips over it.
 # {"Hello": "World"}
 ```
 
-### Delete
+#### Delete
 Delete a file at the specified filepath.
 
-Args:
-    filepath (string)
-
 ```py
-from jsave import delete
+from jsave import JFile
 
-delete("save.json")
+file = JFile("save.json")
+
+file.delete()
 # file is deleted
 ```
 
-### Merge
-THIS FUNCTION IS CURRENTLY NOT IMPLEMENTED!!!!
+### Update
 
-The merge function is used to combine multiple `files - [str]` and save to a `output_filepath - str`.
+Update value at key for specified filepath.
+
+Args:
+
+`key (str)`
+
+`value (object)`
 
 ```py
-from jsave import merge
+from jsave import JFile
 
-merge(["save.json", "newsave.json"], "output.json")
-# new file named output.json with contents of both save.json and newsave.json.
+file = JFile("save.json")
+
+file.update("Hello/World", 10)
+
+print(file.read())
+# {"will not overwrite": true, "Hello":{"World": 10}}
+
 ```
 
-### JSONData
-JSONData contains a variety of methods to use on JSON Data
+### JData
+JData contains a variety of methods to use on JSON Data
 
 Args:
     data (str || dict)
 
 ```py
-from jsave import JSONData, read
+from jsave import JData, JFile
 
 # from string
 stringdata = '{"Im some": "Json Data"}'
-jdata = JSONData(stringdata)
+jdata = JData(stringdata)
 
 # from read
-jdata = read("save.json")
+file = JFile("save.json")
+jdata = file.read()
 
 # from dict
 somedata = {
     "Hello": "World"
 }
 
-jdata = JSONData(somedata)
+jdata = JData(somedata)
 ```
 
 #### prettify
-Returns JSONData with formating
+Returns JData with formating
 
 Args:
     indent (int) = 4
 
 Returns:
-    JSONData as str with formmating
+    JData as str with formmating
 
 ```py
-from jsave import JSONData
+from jsave import JData
 
 # from dict
 somedata = {"Hello": "World"}
 
-jdata = JSONData(somedata)
+jdata = JData(somedata)
 
 print(jdata.prettify())
 #output:
@@ -182,12 +212,12 @@ Args:
 
 Set a single value
 ```py
-from jsave import JSONData
+from jsave import JData
 
 # from dict
 somedata = {"Hello": "World"}
 
-jdata = JSONData(somedata)
+jdata = JData(somedata)
 
 jdata.set_value("Hello", 10)
 
@@ -198,7 +228,7 @@ print(jdata)
 
 Set a nested value
 ```py
-from jsave import JSONData
+from jsave import JData
 
 # from dict
 somedata = {
@@ -207,7 +237,7 @@ somedata = {
     }
 }
 
-jdata = JSONData(somedata)
+jdata = JData(somedata)
 
 jdata.set_value("Hello/World", 467)
 
@@ -217,12 +247,12 @@ print(jdata)
 
 Set a value that dosent exist
 ```py
-from jsave import JSONData
+from jsave import JData
 
 # from dict
 somedata = {}
 
-jdata = JSONData(somedata)
+jdata = JData(somedata)
 
 jdata.set_value("Hello/World", 467)
 
@@ -240,7 +270,7 @@ Returns:
     Value at key
 
 ```py
-from jsave import JSONData
+from jsave import JData
 
 # from dict
 somedata = {
@@ -249,7 +279,7 @@ somedata = {
     }
 }
 
-jdata = JSONData(somedata)
+jdata = JData(somedata)
 
 print(jdata.get_value("Hello/World"))
 # 10

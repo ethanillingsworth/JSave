@@ -1,6 +1,6 @@
 import sys
 import json
-from jsave import save, read, delete, JSONData
+from jsave import JFile, JData
 
 data = {
     "name": "John Doe",
@@ -25,9 +25,10 @@ with open("save.json", "w") as f:
 
 
 def test_read():
-    assert read("save.json") == JSONData(data)
+    file = JFile("save.json")
+    assert file.read() == JData(data)
 
-    assert read("save.json", ["name", "age"]) == JSONData({
+    assert file.read(["name", "age"]) == JData({
         "name": "John Doe",
         "age": 30
     })
@@ -36,15 +37,28 @@ def test_save():
     test_data = {
         "Hello": "World"
     }
-    save(test_data, "newsave.json")
+    file = JFile("output.json")
 
-    assert read("newsave.json") == JSONData(test_data)
+    file.save(test_data)
+
+    assert file.read() == JData(test_data)
+
+def test_update():
+    file = JFile("output.json")
+
+    data = file.read().set_value("Hello", "world")
+
+    file.update("Hello", "World")
+
+    assert file.read() == data
 
 def test_delete():
-    delete("output.json")
+    file = JFile("output.json")
+
+    file.delete()
 
     try:
-        read("output.json")
+        file.read()
         assert False
     except FileNotFoundError:
         assert True

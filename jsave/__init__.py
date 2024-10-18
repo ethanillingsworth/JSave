@@ -2,9 +2,9 @@ import json
 import os
 from tsafe import StringList
 
-class JSONData():
+class JData():
     """
-    JSONData contains a variety of methods to use on JSON Data
+    JData contains a variety of methods to use on JSON Data
 
     Args:
         data (str || dict)
@@ -14,19 +14,19 @@ class JSONData():
             self.data = data
         else:
             self.data = json.loads(data)
-    
+    @safe
     def prettify(self, indent: int = 4) -> str:
         """
-        Returns JSONData with formating
+        Returns JData with formating
 
         Args:
             indent (int) = 4
 
         Returns:
-            JSONData as str with formmating
+            JData as str with formmating
         """
         return json.dumps(self.data, indent=indent)
-    
+    @safe
     def set_value(self, key: str, value: object):
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
@@ -34,6 +34,9 @@ class JSONData():
         Args:
             key (str)
             value (object)
+
+        Returns:
+            Previous JData modified
         
         """
         keyPath = key.split("/")
@@ -47,7 +50,9 @@ class JSONData():
                     latestValue[k] = value
                 
                 latestValue = latestValue[k]
-    
+        
+        return self
+    @safe
     def get_value(self, key: str) -> object:
         """
         The get_value method works in a similar way to getting keys from a dict
@@ -67,7 +72,7 @@ class JSONData():
             except TypeError:
                 raise Exception(f"key '{k}' could not be found")
         if type(latestValue) == dict:
-            return JSONData(latestValue)
+            return JData(latestValue)
         return latestValue
     
     def keys(self) -> StringList:
@@ -97,61 +102,77 @@ class JSONData():
     def __len__(self) -> int:
         return len(self.data)
 
-
-def save(data: dict, filepath: str, indent: int = 4) -> JSONData:
-    """
-    Saves a python dict to a filepath as JSON data
-
-    Args:
-        data (dict)
-        filepath (string)
-        indent (int) = 4
+class JFile():
+    @safe
+    def __init__(self, filepath: str):
+        self.filepath = filepath
     
-    Returns:
-        JSONData that was written to file
-    """
-    jsonData = json.dumps(data, indent=indent)
-    with open(filepath, "w") as f:
-        f.write(jsonData)
+    @safe
+    def save(self, data: dict, indent: int = 4) -> JData:
+        """
+        Saves a python dict to filepath as JSON data
+
+        Args:
+            data (dict)
+            indent (int) = 4
+        
+        Returns:
+            JData that was written to file
+        """
+        jsonData = json.dumps(data, indent=indent)
+        with open(self.filepath, "w") as f:
+            f.write(jsonData)
+        
+        return JData(data)
+
+    @safe
+    def read(self, keys: StringList = [], safe_mode: bool = True) -> JData:
+        """
+        Reads a JSON file.
+
+        Args:
+            keys (StringList) = []
+            safe_mode (bool) = True
+
+        Returns:
+            JData from file
+        """
+        with open(self.filepath, "r") as f:
+            if keys:
+                loaded_dict = JData(f.read())
+                
+                return_dict = {}
+                for key in keys:
+                    try:
+                        return_dict[key] = loaded_dict.data[key]
+                    except KeyError:
+                        if safe_mode:
+                            raise Exception(f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'\n(or set parameter 'safe_mode' to False)")
+                        else:
+                            continue
+                return JData(return_dict)
+
+            return JData(f.read())
+
+    def delete(self):
+        """
+        Delete a file at the specified filepath.
+        """
+        if os.path.exists(self.filepath):
+            os.remove(self.filepath)
     
-    return JSONData(data)
-    
-def read(filepath: str, keys: StringList = [], safe_mode: bool = True) -> JSONData:
-    """
-    Reads a JSON file.
+    @safe
+    def update(self, key: str, value: object):
+        """
+        Update value at key for specified filepath.
 
-    Args:
-        filepath (string)
-        keys (list) = []
-        safe_mode (bool) = True
+        Args:
+            key (str)
+            value (object)
+        
+        """
 
-    Returns:
-        JSONData from file
-    """
-    with open(filepath, "r") as f:
-        if keys:
-            loaded_dict = JSONData(f.read())
-            print(loaded_dict)
-            return_dict = {}
-            for key in keys:
-                try:
-                    return_dict[key] = loaded_dict.data[key]
-                except KeyError:
-                    if safe_mode:
-                        raise Exception(f"'{key}' could not be loaded, please make sure it is in '{filepath}'\n(or set parameter 'safe_mode' to False)")
-                    else:
-                        continue
-            return JSONData(return_dict)
+        self.save(self.read().set_value(key, value).data)
 
-        return JSONData(f.read())
-
-def delete(filepath: str):
-    """
-    Delete a file at the specified filepath.
-
-    Args:
-        filepath (string)
-
-    """
-    if os.path.exists(filepath):
-        os.remove(filepath)
+JSONData = JData
+JSONFile = JFile
