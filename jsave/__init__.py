@@ -1,6 +1,7 @@
 import json
 import os
 from tsafe import StringList, safe
+from colorxs import Color
 
 class JData():
     """
@@ -75,7 +76,7 @@ class JData():
             try:
                 latestValue = latestValue[k]
             except TypeError:
-                raise Exception(f"key '{k}' could not be found")
+                raise Exception(f"{Color.BLUE}key {Color.TEAL}'{k}'{Color.BLUE} could not be found")
         if type(latestValue) == dict:
             return JData(latestValue)
         return latestValue
@@ -149,16 +150,20 @@ class JFile():
                 return_dict = {}
                 for key in keys:
                     
+                    exp_message = f"{Color.TEAL}'{key}'{Color.BLUE} could not be loaded, please make sure it is in {Color.TEAL}'{self.filepath}'{Color.BLUE}\n(or set parameter {Color.TEAL}'safe_mode'{Color.BLUE} to False){Color.CLEAR}"
+
                     try:
                         return_dict[key] = loaded_dict[key]
                     except KeyError:
                         if safe_mode:
-                            raise Exception(f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'\n(or set parameter 'safe_mode' to False)")
+                            print(Color.BLUE)
+                            raise Exception(exp_message)
                         else:
                             continue
                     except TypeError:
                         if safe_mode:
-                            raise Exception(f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'\n(or set parameter 'safe_mode' to False)")
+                            print(Color.BLUE)
+                            raise Exception(exp_message)
                         else:
                             continue
                 return JData(return_dict)
