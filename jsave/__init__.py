@@ -14,6 +14,7 @@ class JData():
             self.data = data
         else:
             self.data = json.loads(data)
+    
     @safe
     def prettify(self, indent: int = 4) -> str:
         """
@@ -26,6 +27,7 @@ class JData():
             JData as str with formmating
         """
         return json.dumps(self.data, indent=indent)
+    
     @safe
     def set_value(self, key: str, value: object):
         """
@@ -50,8 +52,11 @@ class JData():
                     latestValue[k] = value
                 
                 latestValue = latestValue[k]
+            except TypeError:
+                break
         
         return self
+    
     @safe
     def get_value(self, key: str) -> object:
         """
@@ -89,7 +94,6 @@ class JData():
         """
         return self.data.values()
             
-
     def __repr__(self) -> str:
         return str(self.data)
 
@@ -108,22 +112,22 @@ class JFile():
         self.filepath = filepath
     
     @safe
-    def save(self, data: dict, indent: int = 4) -> JData:
+    def save(self, data: JData, indent: int = 4) -> JData:
         """
         Saves a python dict to filepath as JSON data
 
         Args:
-            data (dict)
+            data (JData)
             indent (int) = 4
         
         Returns:
             JData that was written to file
         """
-        jsonData = json.dumps(data, indent=indent)
+        jsonData = json.dumps(data.data, indent=indent)
         with open(self.filepath, "w") as f:
             f.write(jsonData)
         
-        return JData(data)
+        return JData(data.data)
 
     @safe
     def read(self, keys: StringList = [], safe_mode: bool = True) -> JData:
@@ -138,14 +142,21 @@ class JFile():
             JData from file
         """
         with open(self.filepath, "r") as f:
+            
             if keys:
-                loaded_dict = JData(f.read())
+                loaded_dict = JData(f.read()).data
                 
                 return_dict = {}
                 for key in keys:
+                    
                     try:
-                        return_dict[key] = loaded_dict.data[key]
+                        return_dict[key] = loaded_dict[key]
                     except KeyError:
+                        if safe_mode:
+                            raise Exception(f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'\n(or set parameter 'safe_mode' to False)")
+                        else:
+                            continue
+                    except TypeError:
                         if safe_mode:
                             raise Exception(f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'\n(or set parameter 'safe_mode' to False)")
                         else:
@@ -172,7 +183,7 @@ class JFile():
         
         """
 
-        self.save(self.read().set_value(key, value).data)
+        self.save(self.read().set_value(key, value))
 
 JSONData = JData
 JSONFile = JFile

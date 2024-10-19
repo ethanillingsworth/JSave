@@ -39,7 +39,7 @@ def test_save():
     }
     file = JFile("output.json")
 
-    file.save(test_data)
+    file.save(JData(test_data))
 
     assert file.read() == JData(test_data)
 
