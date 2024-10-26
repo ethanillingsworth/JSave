@@ -2,6 +2,7 @@ import json
 import os
 from tsafe import StringList, safe
 from colorxs import Color
+from jsave.error import Error
 
 class JData():
     """
@@ -16,7 +17,6 @@ class JData():
         else:
             self.data = json.loads(data)
     
-    @safe
     def prettify(self, indent: int = 4) -> str:
         """
         Returns JData with formating
@@ -29,7 +29,6 @@ class JData():
         """
         return json.dumps(self.data, indent=indent)
     
-    @safe
     def set_value(self, key: str, value: object):
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
@@ -58,7 +57,6 @@ class JData():
         
         return self
     
-    @safe
     def get_value(self, key: str) -> object:
         """
         The get_value method works in a similar way to getting keys from a dict
@@ -76,7 +74,7 @@ class JData():
             try:
                 latestValue = latestValue[k]
             except TypeError:
-                raise Exception(f"{Color.BLUE}key {Color.TEAL}'{k}'{Color.BLUE} could not be found")
+                Error(1001, f"key '{k}'{Color.BLUE} could not be found", True)
         if type(latestValue) == dict:
             return JData(latestValue)
         return latestValue
@@ -108,11 +106,9 @@ class JData():
         return len(self.data)
 
 class JFile():
-    @safe
     def __init__(self, filepath: str):
         self.filepath = filepath
     
-    @safe
     def save(self, data: JData, indent: int = 4) -> JData:
         """
         Saves a python dict to filepath as JSON data
@@ -130,7 +126,6 @@ class JFile():
         
         return JData(data.data)
 
-    @safe
     def read(self, keys: StringList = [], safe_mode: bool = True) -> JData:
         """
         Reads a JSON file.
@@ -150,22 +145,22 @@ class JFile():
                 return_dict = {}
                 for key in keys:
                     
-                    exp_message = f"{Color.TEAL}'{key}'{Color.BLUE} could not be loaded, please make sure it is in {Color.TEAL}'{self.filepath}'{Color.BLUE}\n(or set parameter {Color.TEAL}'safe_mode'{Color.BLUE} to False){Color.CLEAR}"
+                    exp_message = f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'"
 
                     try:
                         return_dict[key] = loaded_dict[key]
                     except KeyError:
                         if safe_mode:
-                            print(Color.BLUE)
-                            raise Exception(exp_message)
+                            Error(1002, exp_message + "\n(or set parameter 'safe_mode' to False)", True)
                         else:
-                            continue
+                            Error(1003, exp_message + "\n(Skipping since 'safe_mode' is True)", False)
+
                     except TypeError:
                         if safe_mode:
-                            print(Color.BLUE)
-                            raise Exception(exp_message)
+                            Error(1002, exp_message + "\n(or set parameter 'safe_mode' to False)", True)
                         else:
-                            continue
+                            Error(1003, exp_message + "\n(Skipping since 'safe_mode' is True)", False)
+
                 return JData(return_dict)
 
             return JData(f.read())
@@ -177,7 +172,6 @@ class JFile():
         if os.path.exists(self.filepath):
             os.remove(self.filepath)
     
-    @safe
     def update(self, key: str, value: object):
         """
         Update value at key for specified filepath.
