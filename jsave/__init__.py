@@ -3,6 +3,14 @@ import os
 from tsafe import StringList, safe
 from colorxs import Color
 from jsave.error import Error
+from cryptography.fernet import Fernet
+
+key = None
+
+if (os.path.exists(".key")):
+    with open('.key', 'rb') as file:
+        key = file.read()
+
 
 class JData():
     """
@@ -164,6 +172,27 @@ class JFile():
                 return JData(return_dict)
 
             return JData(f.read())
+    
+    def read_bytes(self) -> bytes:
+        """
+        Read data from file as bytes
+
+        Returns:
+            bytes from file
+        """
+        with open(self.filepath, "rb") as f:
+            return f.read()
+        return bytes("None", "utf-8")
+    
+    def save_bytes(self, data: bytes):
+        """
+        Write data to file as bytes
+
+        Args:
+            data (bytes)
+        """
+        with open(self.filepath, "wb") as f:
+            f.write(data)
 
     def delete(self):
         """
@@ -183,6 +212,39 @@ class JFile():
         """
 
         self.save(self.read().set_value(key, value))
+
+    def encyrpt(self):
+        """
+        Encyrpt the current file
+        """
+        # gen key if it dosent exist
+        global key
+        if key is None:
+            key = Fernet.generate_key()
+            with open('.key','wb') as file:
+                file.write(key)
+        fer = Fernet(key)
+        encrypted = fer.encrypt(self.read_bytes())
+
+        self.save_bytes(encrypted)
+    
+    def decyrpt(self) -> JData:
+        """
+        Decyrpt the current file
+        """
+        # gen key if it dosent exist
+        global key
+        if key is None:
+            Error(3001, ".key file dosent exist, meaning you wont be able to decrypt this file unless you have the asocciated .key file", True)
+        
+        fer = Fernet(key)
+        decrypted = fer.decrypt(self.read_bytes())
+
+        self.save_bytes(decrypted)
+
+        return JData(decrypted)
+
+        
 
 JSONData = JData
 JSONFile = JFile
