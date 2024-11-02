@@ -150,18 +150,7 @@ files = [
     {file = "pycparser-2.22.tar.gz", hash = "sha256:491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"},
 ]
 
-[[package]]
-name = "tsafe"
-version = "1.3.1"
-description = "A module that forces functions to be type safe."
-optional = false
-python-versions = "<4.0,>=3.8"
-files = [
-    {file = "tsafe-1.3.1-py3-none-any.whl", hash = "sha256:86d224e4095835a9e6323d3b65f746b1879a45f9e68007374a576ae9d57b9ce7"},
-    {file = "tsafe-1.3.1.tar.gz", hash = "sha256:47bf544c32e75a6e02ff1cc66e7def595819f75d2dab386506e8e6dd04b6526e"},
-]
-
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "a7e24b2caa4fdd9a7ab2f7a741078aa8c8a442b77b7975e99b36ec931ada2b2f"
+content-hash = "08749006583ccf5020ca75000944fddc0f880e0be28c63542b573268c4be473b"
