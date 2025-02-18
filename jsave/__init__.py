@@ -1,6 +1,5 @@
 import json
 import os
-from tsafe import StringList, safe
 from colorxs import Color
 from jsave.error import Error
 from cryptography.fernet import Fernet
@@ -87,7 +86,7 @@ class JData():
             return JData(latestValue)
         return latestValue
     
-    def keys(self) -> StringList:
+    def keys(self) -> list:
         """
         Returns:
             keys from data
@@ -134,7 +133,7 @@ class JFile():
         
         return JData(data.data)
 
-    def read(self, keys: StringList = [], safe_mode: bool = True) -> JData:
+    def read(self, keys: list = [], safe_mode: bool = True) -> JData:
         """
         Reads a JSON file.
 
@@ -244,7 +243,6 @@ class JFile():
 
         return JData(decrypted)
 
-        
-
+    
 JSONData = JData
 JSONFile = JFile
