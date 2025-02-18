@@ -1,7 +1,9 @@
 import json
 import os
 from colorxs import Color
-from jsave.error import Error
+from .error import Error
+from .utils import clear
+
 from cryptography.fernet import Fernet
 
 key = None
@@ -156,13 +158,7 @@ class JFile():
 
                     try:
                         return_dict[key] = loaded_dict[key]
-                    except KeyError:
-                        if safe_mode:
-                            Error(1002, exp_message + "\n(or set parameter 'safe_mode' to False)", True)
-                        else:
-                            Error(1003, exp_message + "\n(Skipping since 'safe_mode' is True)", False)
-
-                    except TypeError:
+                    except (KeyError, TypeError):
                         if safe_mode:
                             Error(1002, exp_message + "\n(or set parameter 'safe_mode' to False)", True)
                         else:
