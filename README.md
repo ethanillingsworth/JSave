@@ -27,7 +27,7 @@ To find out what to import, and how to use JSave check out the [docs](#docs).
 
 
 ## Wiki
-For docs and examples for JSave take a look at the [wiki page](./wiki)
+For docs and examples for JSave take a look at the [wiki page](https://github.com/ethanillingsworth/JSave/wiki)
 
 ## Contributing
 All types of contibutions are welcome for the JSave project, whether its updating the documentation, reporting issues, or simply mentioning JSave in your projects.
