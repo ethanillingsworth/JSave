@@ -11,6 +11,8 @@ if (os.path.exists(".key")):
     with open('.key', 'rb') as file:
         key = file.read()
 
+# use for type hints
+JFileList = None
 
 class JData():
     """
