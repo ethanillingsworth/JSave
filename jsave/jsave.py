@@ -3,6 +3,7 @@ import os
 from colorxs import Color
 from .error import Error
 from .utils import clear
+from .types import JFileList
 from cryptography.fernet import Fernet
 
 key = None
@@ -241,7 +242,7 @@ class JFile():
 
         return JData(decrypted)
 
-    def combine(self, files: list):
+    def combine(self, files: JFileList):
         """
         Combine JSON files into 1 file.
 
@@ -259,9 +260,6 @@ class JFile():
     
         self.save(JData(merged))
         
-        
-            
-
     def combine_paths(self, paths: list):
         """
         Combine JSON paths into 1 file.
