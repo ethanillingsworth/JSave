@@ -1,4 +1,3 @@
-from .jsave import JFile
 from .error import Error
 
 class JFileList:
