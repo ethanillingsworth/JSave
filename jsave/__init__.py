@@ -1,4 +1,4 @@
-from .jsave import JFile, JData
-from .types import JFileList
+from .jsave import JFile, JData, JFileList
+
 JSONData = JData
 JSONFile = JFile
