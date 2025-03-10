@@ -92,14 +92,14 @@ class JData():
     def keys(self) -> list:
         """
         Returns:
-            keys from data
+            Keys from data
         """
         return self.data.keys()
     
     def values(self) -> list:
         """
         Returns:
-            values from data
+            Values from data
         """
         return self.data.values()
             
