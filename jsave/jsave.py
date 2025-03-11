@@ -234,7 +234,7 @@ class JFile():
         # gen key if it dosent exist
         global key
         if key is None:
-            Error(3001, ".key file dosent exist, meaning you wont be able to decrypt this file unless you have the asocciated .key file", True)
+            Error(1011, ".key file dosent exist, meaning you wont be able to decrypt this file unless you have the asocciated .key file", True)
         
         fer = Fernet(key)
         decrypted = fer.decrypt(self.read_bytes())
@@ -291,14 +291,25 @@ class JFileList:
         self.list = list
     
     def append(self, item: JFile):
+        """
+        Add item to end of list
 
+        Args:
+            item (JFile)
+        """
         if not isinstance(item, JFile):
             Error(4002, f"The item you inputed is not a JFile", True)
 
         self.list.append(item)
 
     def insert(self, index: int, item: JFile):
+        """
+        Insert item at index
 
+        Args:
+            index (int)
+            item (JFile)
+        """
         if not isinstance(item, JFile):
             Error(4002, f"The item you inputed is not a JFile", True)
 
@@ -307,7 +318,12 @@ class JFileList:
         
     
     def remove(self, item: JFile):
+        """
+        Remove item
 
+        Args:
+            item (JFile)
+        """
         if not isinstance(item, JFile):
             Error(4002, f"The item you inputed is not a JFile", True)
 
@@ -315,17 +331,35 @@ class JFileList:
 
     
     def pop(self, index: int = 0):
+        """
+        Pop item from list at index
+
+        Args:
+            index (int) = 0
+        """
         self.list.pop(index)
 
 
     def sort(self):
+        """
+        Sort list
+        """
         self.list.sort()
     
-    def get(self, index: int = 0):
+    def get(self, index: int):
+        """
+        Get item at index
+
+        Args:
+            index (int)
+        """
         return self.list[index]
     
 
     def reverse(self):
+        """
+        Reverse list
+        """
         self.list.reverse()
 
     def __repr__(self) -> str:
