@@ -7,7 +7,7 @@ readme = "README.md"
 license = "MIT License"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 colorxs = "1.0.1"
 cryptography = "^43.0.3"
 listtypes = "1.0.1"
