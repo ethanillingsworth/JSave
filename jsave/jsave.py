@@ -22,8 +22,8 @@ class JData():
     Args:
         data (str || dict)
     """
-    def __init__(self, data: object):
-        if (type(data) == dict):
+    def __init__(self, data: dict or list or str):
+        if (type(data) == dict or type(data) == list):
             self.data = data
         elif (data == "" or data is None) :
             self.data = {}
@@ -42,7 +42,7 @@ class JData():
         """
         return json.dumps(self.data, indent=indent)
     
-    def set_value(self, key: str, value: object):
+    def set_value(self, key: str or int, value: object):
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
 
@@ -54,6 +54,11 @@ class JData():
             Previous JData modified
         
         """
+
+        if (isinstance(key, int)):
+            self.data[key] = value
+            return self
+        
         keyPath = key.split("/")
         latestValue = self.data
         for index, k in enumerate(keyPath):
@@ -70,7 +75,7 @@ class JData():
         
         return self
     
-    def get_value(self, key: str) -> object:
+    def get_value(self, key: str or int) -> object:
         """
         The get_value method works in a similar way to getting keys from a dict
 
@@ -81,6 +86,9 @@ class JData():
             Value at key
         
         """
+
+        if (isinstance(key, int)):
+            return self.data[key]
         keyPath = key.split("/")
         latestValue = self.data
         for index, k in enumerate(keyPath):
@@ -133,9 +141,9 @@ class JFile():
         Returns:
             JData that was written to file
         """
-        jsonData = json.dumps(data.data, indent=indent)
+
         with open(self.filepath, "w") as f:
-            f.write(jsonData)
+            json.dump(data.data, f, indent=indent)
         
         return JData(data.data)
 
@@ -154,14 +162,23 @@ class JFile():
             
             if keys:
                 loaded_dict = JData(f.read()).data
+                print(loaded_dict)
                 
                 return_dict = {}
+
+                if (isinstance(loaded_dict, list)):
+                    return_dict = []
+
                 for key in keys:
                     
                     exp_message = f"'{key}' could not be loaded, please make sure it is in '{self.filepath}'"
 
                     try:
-                        return_dict[key] = loaded_dict[key]
+                        
+                        if (isinstance(return_dict, list)):
+                            return_dict.append(loaded_dict[key])
+                        else:
+                            return_dict[key] = loaded_dict[key]
                     except (KeyError, TypeError):
                         if safe_mode:
                             Error(1002, exp_message + "\n(or set parameter 'safe_mode' to False)", True)

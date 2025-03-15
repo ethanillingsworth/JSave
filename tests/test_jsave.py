@@ -20,19 +20,46 @@ data = {
     "hire_date": None
 }
 
-jsonData = json.dumps(data, indent=4)
+data2 = [
+    "Hello",
+    "World",
+    0,
+    213,
+    21.23,
+    None,
+    {
+        "Object": "Thingy"
+    },
+    True
+]
+
+
+
+
 with open("save.json", "w") as f:
-    f.write(jsonData)
+    json.dump(data, f, indent=4)
+
+with open("save2.json", "w") as f:
+    json.dump(data2, f, indent=4)
 
 
 def test_read():
     file = JFile("save.json")
+    file2 = JFile("save2.json")
+
     assert file.read() == JData(data)
+
+    assert file2.read() == JData(data2)
 
     assert file.read(["name", "age"]) == JData({
         "name": "John Doe",
         "age": 30
     })
+
+    assert file2.read([0, 2]) == JData([
+        "Hello",
+        0
+    ])
 
 def test_save():
     test_data = {
@@ -42,7 +69,14 @@ def test_save():
 
     file.save(JData(test_data))
 
+    file2 = JFile("output2.json")
+
+    file2.save(JData(["Hello", "World", 102]))
+
+
     assert file.read() == JData(test_data)
+    assert file2.read() == JData(["Hello", "World", 102])
+
 
 def test_update():
     file = JFile("output.json")
