@@ -40,6 +40,9 @@ class JData():
         Returns:
             JData as str with formmating
         """
+        if (indent == -1):
+            return self.data
+
         return json.dumps(self.data, indent=indent)
     
     def set_value(self, key: str or int, value: object):
@@ -130,6 +133,10 @@ class JFile():
     def __init__(self, filepath: str):
         self.filepath = filepath
     
+    def create(self):
+        with open(self.filepath, "w") as f:
+            f.write("{}")
+
     def save(self, data: JData, indent: int = 4) -> JData:
         """
         Saves a python dict to filepath as JSON data
@@ -228,7 +235,6 @@ class JFile():
         """
 
         self.save(self.read().set_value(key, value))
-
 
     def encyrpt(self):
         """
