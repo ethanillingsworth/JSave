@@ -28,7 +28,7 @@ from jsave import FUNCTIONS_HERE
 To find out what to import, and how to use JSave check out the [docs](https://github.com/ethanillingsworth/JSave/wiki).
 
 ### As a cmdline utility
-To get started with JSave's cmd utility, first find the avaiable modules [here](https://github.com/ethanillingsworth/JSave/wiki/Command-Utility#modules).
+To get started with JSave's cmd utility, first find the available modules [here](https://github.com/ethanillingsworth/JSave/wiki/Command-Utility#modules).
 
 Then run the module in your terminal like this:
 ```
