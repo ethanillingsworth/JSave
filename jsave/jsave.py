@@ -45,7 +45,7 @@ class JData():
 
         return json.dumps(self.data, indent=indent)
     
-    def set_value(self, key: str or int, value: object) -> JData:
+    def set_value(self, key: str or int, value: object) -> self:
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
 
