@@ -1,5 +1,5 @@
 import argparse
-from ..jsave import JFile, JData
+from ...jsave import JFile, JData
 
 parser = argparse.ArgumentParser(description="save data to a file")
 

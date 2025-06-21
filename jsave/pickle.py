@@ -3,7 +3,7 @@ import pickle
 
 class PickleFile:
     """
-    All your pickiling in one class
+    All your pickling in one class
 
     Args:
         filepath: str
