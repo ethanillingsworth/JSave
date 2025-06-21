@@ -30,9 +30,9 @@ To find out what to import, and how to use JSave check out the [docs](https://gi
 ### As a cmdline utility
 To get started with JSave's cmd utility, first find the available modules [here](https://github.com/ethanillingsworth/JSave/wiki/Command-Utility#modules).
 
-Then run the module in your terminal like this:
+Then run a command in your terminal like this:
 ```
-python -m jsave.cmd.MODULENAME
+python -m jsave.cmd.MODULE_NAME.COMMAND_NAME
 ```
 ## Wiki
 For docs and examples for JSave take a look at the [wiki page](https://github.com/ethanillingsworth/JSave/wiki)
