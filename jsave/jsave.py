@@ -45,7 +45,7 @@ class JData():
 
         return json.dumps(self.data, indent=indent)
     
-    def set_value(self, key: str or int, value: object):
+    def set_value(self, key: str or int, value: object) -> JData:
         """
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
 
@@ -140,6 +140,9 @@ class JFile():
         self.filepath = filepath
     
     def create(self):
+        """
+        Creates a blank file
+        """
         with open(self.filepath, "w") as f:
             f.write("{}")
 
