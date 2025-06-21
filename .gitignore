@@ -6,3 +6,6 @@ __pycache__
 test.py
 .venv
 .key
+jsons/*
+pickles
+*.dat

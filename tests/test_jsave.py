@@ -1,8 +1,12 @@
 import sys
 import json
+import os
 
 from jsave import JFile, JData
 
+if not os.path.exists("jsons"):
+    os.mkdir("jsons")
+    
 data = {
     "name": "John Doe",
     "age": 30,
@@ -36,16 +40,16 @@ data2 = [
 
 
 
-with open("save.json", "w") as f:
+with open("jsons/save.json", "w") as f:
     json.dump(data, f, indent=4)
 
-with open("save2.json", "w") as f:
+with open("jsons/save2.json", "w") as f:
     json.dump(data2, f, indent=4)
 
 
 def test_read():
-    file = JFile("save.json")
-    file2 = JFile("save2.json")
+    file = JFile("jsons/save.json")
+    file2 = JFile("jsons/save2.json")
 
     assert file.read() == JData(data)
 
@@ -65,11 +69,11 @@ def test_save():
     test_data = {
         "Hello": "World"
     }
-    file = JFile("output.json")
+    file = JFile("jsons/output.json")
 
     file.save(JData(test_data))
 
-    file2 = JFile("output2.json")
+    file2 = JFile("jsons/output2.json")
 
     file2.save(JData(["Hello", "World", 102]))
 
@@ -79,7 +83,7 @@ def test_save():
 
 
 def test_update():
-    file = JFile("output.json")
+    file = JFile("jsons/output.json")
 
     data = file.read().set_value("Hello", "world")
 
@@ -88,7 +92,7 @@ def test_update():
     assert file.read() == data
 
 def test_delete():
-    file = JFile("output.json")
+    file = JFile("jsons/output.json")
 
     file.delete()
 

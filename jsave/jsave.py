@@ -20,7 +20,7 @@ class JData():
     JData contains a variety of methods to use on JSON Data
 
     Args:
-        data (str || dict)
+        data: dict or list or str
     """
     def __init__(self, data: dict or list or str):
         if (type(data) == dict or type(data) == list):
@@ -35,7 +35,7 @@ class JData():
         Returns JData with formating
 
         Args:
-            indent (int) = 4
+            indent: int = 4
 
         Returns:
             JData as str with formmating
@@ -50,8 +50,8 @@ class JData():
         The set_value method works in a similar way to setting keys for dicts with some added comfort featues
 
         Args:
-            key (str)
-            value (object)
+            key: str or int
+            value: object
 
         Returns:
             Previous JData modified
@@ -83,7 +83,7 @@ class JData():
         The get_value method works in a similar way to getting keys from a dict
 
         Args:
-            key (str)
+            key: str
 
         Returns:
             Value at key
@@ -130,6 +130,12 @@ class JData():
         return len(self.data)
 
 class JFile():
+    """
+    All your JSON file needs in one class
+
+    Args:
+        filepath: str
+    """
     def __init__(self, filepath: str):
         self.filepath = filepath
     
@@ -142,8 +148,8 @@ class JFile():
         Saves a python dict to filepath as JSON data
 
         Args:
-            data (JData)
-            indent (int) = 4
+            data: JData
+            indent: int = 4
         
         Returns:
             JData that was written to file
@@ -159,8 +165,8 @@ class JFile():
         Reads a JSON file.
 
         Args:
-            keys (StringList) = []
-            safe_mode (bool) = True
+            keys: StringList = []
+            safe_mode: bool = True
 
         Returns:
             JData from file
@@ -212,7 +218,7 @@ class JFile():
         Write data to file as bytes
 
         Args:
-            data (bytes)
+            data: bytes
         """
         with open(self.filepath, "wb") as f:
             f.write(data)
@@ -229,8 +235,8 @@ class JFile():
         Update value at key for specified filepath.
 
         Args:
-            key (str)
-            value (object)
+            key: str
+            value: object
         
         """
 
@@ -272,7 +278,7 @@ class JFile():
         Combine JSON files into 1 file.
 
         Args:
-            files (JFileList)
+            files: JFileList
         """
 
         merged = {}
@@ -290,7 +296,7 @@ class JFile():
         Combine JSON paths into 1 file.
 
         Args:
-            paths (StringList)
+            paths: StringList
         """
 
         file_list = []
@@ -300,13 +306,22 @@ class JFile():
 
         self.combine(file_list)
 
-
 class JFileList(TypeList):
     """
     A list comprised of only JFile objects
 
     Args:
-        l (list)
+        l: list
     """
     def __init__(self, l: list = []):
         super().__init__(JFile, l)
+
+class JDataList(TypeList):
+    """
+    A list comprised of only JData objects
+
+    Args:
+        l: list
+    """
+    def __init__(self, l: list = []):
+        super().__init__(JData, l)
