@@ -8,24 +8,32 @@ JSave is a simple python module for operating on JSON files.
 ## Table of Contents
 * [Install](#install)
 * [Quick Start](#quick-start)
-* [Docs](#docs)
+* [Docs](https://github.com/ethanillingsworth/JSave/wiki)
 * [Contributing](#contributing)
 
 ## Install
 To install JSave use `pip`.
 ```
-pip3 install jsave
+pip install jsave
 ```
 
 ## Quick Start
+
+### As a package
 To get started with JSave first import functions from `jsave` into your project like this.
 ```py
 from jsave import FUNCTIONS_HERE
 ```
 
-To find out what to import, and how to use JSave check out the [docs](#docs).
+To find out what to import, and how to use JSave check out the [docs](https://github.com/ethanillingsworth/JSave/wiki).
 
+### As a cmdline utility
+To get started with JSave's cmd utility, first find the avaiable modules [here](https://github.com/ethanillingsworth/JSave/wiki/Command-Utility#modules).
 
+Then run the module in your terminal like this:
+```
+python -m jsave.cmd.MODULENAME
+```
 ## Wiki
 For docs and examples for JSave take a look at the [wiki page](https://github.com/ethanillingsworth/JSave/wiki)
 
