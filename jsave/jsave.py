@@ -178,7 +178,6 @@ class JFile():
             
             if keys:
                 loaded_dict = JData(f.read()).data
-                print(loaded_dict)
                 
                 return_dict = {}
 
