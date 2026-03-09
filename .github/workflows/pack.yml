@@ -50,6 +50,7 @@ jobs:
       #----------------------------------------------
       - name: Install Depends/Run tests
         run: |
+          poetry lock
           poetry install
           source .venv/bin/activate
           pip install pytest
